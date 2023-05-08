@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,15 @@ public class MovementScript : MonoBehaviour
         handlerSpeed();
         moveCharacter(movementDir);
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("boop");
+        if (col.gameObject.tag == "Wall")
+        {
+            isMoving = false;
+        }
     }
 
     void moveCharacter(Vector3 dir)
