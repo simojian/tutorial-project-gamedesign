@@ -6,12 +6,13 @@ using UnityEngine;
 public class CinemachineShake : MonoBehaviour
 {
     private float shakeTimer;
-    
-    private CinemachineBasicMultiChannelPerlin _cmBasicMultiChannelPerlin;
+
+    public CinemachineVirtualCamera _camera;
+    public CinemachineBasicMultiChannelPerlin _cmBasicMultiChannelPerlin;
     void Start()
     {
-        _cmBasicMultiChannelPerlin =
-            GetComponent<CinemachineVirtualCamera>().GetComponent<CinemachineBasicMultiChannelPerlin>();
+        _camera = GetComponent<CinemachineVirtualCamera>();
+        _cmBasicMultiChannelPerlin = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     // Update is called once per frame

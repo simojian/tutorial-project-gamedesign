@@ -7,14 +7,21 @@ public class CrateLogic : MonoBehaviour
 {
     private MovementScript playerScript;
     private Collider2D colPhysics;
+    private CinemachineShake cam;
 
-    public float breakVelocity;
+    public float onBreakShakeDuration;
+    public float onBreakShakeAmplitude;
+
+    private float breakVelocity;
     
     // Start is called before the first frame update
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementScript>();
         colPhysics = gameObject.GetComponent<BoxCollider2D>();
+        cam = GameObject.FindGameObjectWithTag("CMCam").GetComponent<CinemachineShake>();
+
+        breakVelocity = playerScript.breakVelocity;
     }
 
     // Update is called once per frame
@@ -43,6 +50,15 @@ public class CrateLogic : MonoBehaviour
 
     void DestroySequence()
     {
+        
+        
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        cam.ShakeScreen(onBreakShakeAmplitude, onBreakShakeDuration);
+        
+        playerScript.RemoveSpeed();
     }
 }

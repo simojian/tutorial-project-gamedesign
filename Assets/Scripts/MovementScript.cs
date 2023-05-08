@@ -8,6 +8,9 @@ public class MovementScript : MonoBehaviour
     [System.NonSerialized] public float currentVelocity;
     public float maxVelocity;
     public float speed;
+
+    public float breakVelocity;
+    public float speedRemove;
     
     private Vector3 movementDir = Vector3.zero;
 
@@ -89,5 +92,15 @@ public class MovementScript : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public void RemoveSpeed()
+    {
+        currentVelocity -= speedRemove;
+
+        if (currentVelocity < 0)
+        {
+            currentVelocity = 0;
+        }
     }
 }
