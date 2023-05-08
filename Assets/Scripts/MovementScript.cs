@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
-    private float currentVelocity;
+    [System.NonSerialized] public float currentVelocity;
     public float maxVelocity;
     public float speed;
     
@@ -29,30 +29,29 @@ public class MovementScript : MonoBehaviour
 
         if (Input.anyKey && !isMoving)
         {
-            movementDir = keyDirCheck();
+            movementDir = KeyDirCheck();
             
         }
         
-        handlerSpeed();
-        moveCharacter(movementDir);
+        HandlerSpeed();
+        MoveCharacter(movementDir);
         
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
-        Debug.Log("boop");
-        if (col.gameObject.tag == "Wall")
+        if (col.gameObject.CompareTag("Wall"))
         {
             isMoving = false;
         }
     }
 
-    void moveCharacter(Vector3 dir)
+    void MoveCharacter(Vector3 dir)
     {
         transform.position += dir * currentVelocity * Time.deltaTime;
     }
 
-    void handlerSpeed()
+    void HandlerSpeed()
     {
         if (isMoving && currentVelocity < maxVelocity)
         {
@@ -64,26 +63,26 @@ public class MovementScript : MonoBehaviour
         }
     }
 
-    Vector3 keyDirCheck()
+    Vector3 KeyDirCheck()
     {
         
         
-        if (Input.GetKey(upButton))
+        if (Input.GetKeyDown(upButton))
         {
             isMoving = true;
             return Vector3.up;
         }
-        if (Input.GetKey(rightButton))
+        if (Input.GetKeyDown(rightButton))
         {
             isMoving = true;
             return Vector3.right;
         }
-        if (Input.GetKey(leftButton))
+        if (Input.GetKeyDown(leftButton))
         {
             isMoving = true;
             return Vector3.left;
         }
-        if (Input.GetKey(downButton))
+        if (Input.GetKeyDown(downButton))
         {
             isMoving = true;
             return Vector3.down;
